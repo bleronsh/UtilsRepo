@@ -8,6 +8,7 @@ do
   [[ $line =~ ^#.* ]] && continue
 
   reponame=$(echo $line | cut -d: -f4)
+  touch $reponame
   git checkout -b $reponame/$branchname
   git add .
   git commit -m "new branch"
