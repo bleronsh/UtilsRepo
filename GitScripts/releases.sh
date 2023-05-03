@@ -1,19 +1,16 @@
 #!/usr/bin/env bash
 
 # Set the name of your release branch (e.g. "release-v1.0")
-RELEASE_BRANCH_NAME="release-v1.3"
-GIT_TOKEN="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"
+RELEASE_BRANCH_NAME=$1
 # List of repositories to create release branches"
 repos="22 2"
-
 # Loop through the list of repositories and create release branches
-# Clone the repository if it doesn't exist locally
+git config --global credential.helper store
+
 for repo in $repos
 do
-  if [! -d "$repo"]
-  then
-    git clone "https://$GIT_TOKEN@github.com/bleronsh/$repo.git"
-  fi
+  git clone "https://github.com/bleronsh/$repo.git"
+  git config --global credential.helper store
 # Change directory to the repository
   cd "$repo"
 
@@ -32,5 +29,5 @@ do
      # Push the new release branch to the remote repository
   git push origin "$RELEASE_BRANCH_NAME"
   cd ..
+  rm -rf $repo
 done
-# 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
